@@ -336,6 +336,14 @@ class NetworkTrainer:
 
         # 学習に必要なクラスを準備する
         accelerator.print("prepare optimizer, data loader etc.")
+        print(args.text_encoder_lr)
+        print(type(args.text_encoder_lr[0]))
+        if isinstance(args.text_encoder_lr, (list, tuple)):
+            args.text_encoder_lr = float(args.text_encoder_lr[0])
+        elif isinstance(args.text_encoder_lr, str):
+            args.text_encoder_lr = float(args.text_encoder_lr)
+        elif args.text_encoder_lr is None:
+            args.text_encoder_lr = 0.0
 
         # 後方互換性を確保するよ
         try:
